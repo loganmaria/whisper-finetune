@@ -297,6 +297,7 @@ if args.train_strategy == 'epoch':
         greater_is_better=False,
         optim="adamw_bnb_8bit",
         resume_from_checkpoint=args.resume_from_ckpt,
+        xpu_backend="gloo",  # Use with CPU only training
     )
 
 elif args.train_strategy == 'steps':
@@ -324,6 +325,7 @@ elif args.train_strategy == 'steps':
         greater_is_better=False,
         optim="adamw_bnb_8bit",
         resume_from_checkpoint=args.resume_from_ckpt,
+        xpu_backend="gloo",  # Use with CPU only training
     )
 
 trainer = Seq2SeqTrainer(
@@ -340,4 +342,5 @@ processor.save_pretrained(training_args.output_dir)
 
 print('TRAINING IN PROGRESS...')
 trainer.train()
+trainer.save_model(training_args.output_dir)
 print('DONE TRAINING')
