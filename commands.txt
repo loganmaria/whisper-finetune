@@ -1,6 +1,31 @@
-# Oliveri eelnevad käsud (ei tea, kas töötavad)
+ngpu=1 # number of GPUs to perform distributed training on.
 
-ngpu=1
-DATA PREPARATION COMMAND: python custom_data/data_prep.py --source_data_dir DATASET_ABSOLUTE_PATH --output_data_dir OUTPUT_PATH/prepared_data/train OUTPUT_PATH/prepared_data/evaluate
-START TRAINING COMMAND: torchrun --nproc_per_node=${ngpu} train/fine-tune_on_custom_dataset.py --model_name openai/whisper-small --language Estonian --num_proc 1 --output_dir ./training_output --train_datasets PREPARED_TRAINING_DATASET_ABSOLUTE_PATH --eval_datasets PREPARED_EVALUATION_DATASET_ABSOLUTE_PATH
-TRANSCRIPT AUDIO FILE COMMAND: python transcribe_audio.py --is_public_repo False --ckpt_dir "./training_output" --temp_ckpt_folder "./training_output" --path_to_audio AUDIO_FILE_PATH --language et --device 0
+ENTER THE VIRTUAL ENVIRONMENT:
+
+source env_whisper-finetune/Scripts/activate
+
+DATA PREPARATION COMMAND:
+
+python custom_data/data_prep.py
+--source_data_dir DATASET_ABSOLUTE_PATH
+--output_data_dir OUTPUT_PATH/prepared_data/train
+
+START TRAINING COMMAND:
+
+torchrun --nproc_per_node=${ngpu} train/fine-tune_on_custom_dataset.py \
+--model_name openai/whisper-small \
+--language Estonian \
+--num_proc 1 \
+--output_dir ./training_output \
+--train_datasets PREPARED_TRAINING_DATASET_ABSOLUTE_PATH \
+--eval_datasets PREPARED_EVALUATION_DATASET_ABSOLUTE_PATH
+
+TRANSCRIPT AUDIO FILE COMMAND:
+
+python3 transcribe_audio.py \
+--is_public_repo False \
+--ckpt_dir "./training_output"\
+--temp_ckpt_folder "./training_output" \
+--path_to_audio AUDIO_FILE_PATH \
+--language et \
+--device 0
