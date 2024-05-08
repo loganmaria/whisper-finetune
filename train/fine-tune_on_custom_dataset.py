@@ -180,6 +180,7 @@ def load_custom_dataset(split):
 
 def prepare_dataset(batch):
     # load and (possibly) resample audio data to 16kHz
+
     audio = batch["audio"]
 
     # compute log-Mel input features from input audio array 
