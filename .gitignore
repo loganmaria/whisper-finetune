@@ -1,4 +1,4 @@
 /.idea/
-/data/custom_data/prepared_data_output/evaluate/
-/data/custom_data/prepared_data_output/train/
 /training_output/
+/env_whisperx/lib/
+/env_whisperx/bin/

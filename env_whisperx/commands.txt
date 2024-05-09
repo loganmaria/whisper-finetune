@@ -1,0 +1,7 @@
+ENTER THE VIRTUAL ENVIRONMENT:
+
+source env_whisperx/bin/activate
+
+TRANSCRIBE ESTONIAN:
+
+whisperx ./sven.wav --model large-v3 --language et --align_model anton-l/wav2vec2-large-xlsr-53-estonian --batch_size 4

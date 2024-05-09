@@ -1,27 +1,19 @@
-ngpu=1 # number of GPUs to perform distributed training on.
-
-ENTER THE VIRTUAL ENVIRONMENT:
-
-source env_whisper-finetune/Scripts/activate
-
-DATA PREPARATION COMMAND:
+DATA PREPARATION:
 
 python data/data_prep.py --source_data_dir ./data/custom_data --output_data_dir ./training_output/prepared_data/train
 
 
-START TRAINING COMMAND:
+TRAINING:
 
 torchrun --nproc_per_node=1 train/fine-tune_on_custom_dataset.py --model_name openai/whisper-small --language Estonian --num_proc 1 --output_dir ./training_output/train --train_datasets training_output/prepared_data/train --eval_datasets training_output/prepared_data/train
 
 
-EVALUATE
+EVALUATING:
 
 python evaluate/evaluate_on_custom_dataset.py --is_public_repo False --ckpt_dir "./training_output/train" --temp_ckpt_folder "./training_output/train" --language et --eval_datasets ./training_output/prepared_data/train --output_dir ./training_output/predictions
 
-TRANSCRIPT AUDIO FILE COMMAND:
+TRANSCRIBE:
 
 python transcribe_audio.py --is_public_repo False --ckpt_dir "training_output/train" --temp_ckpt_folder "training_output/train" --path_to_audio ./data/custom_data/audio_files/sven.wav --language et
-
-python transcribe_audio.py --is_public_repo True --hf_model anton-l/wav2vec2-large-xlsr-53-estonian --path_to_audio ./data/custom_data/audio_files/sven.wav --language et
 
 python transcribe_audio.py --is_public_repo True --hf_model TalTechNLP/whisper-large-et --path_to_audio ./data/custom_data/audio_files/sven.wav --language et
