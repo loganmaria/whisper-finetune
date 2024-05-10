@@ -81,3 +81,4 @@ zipp==3.15.0
 setuptools
 nvidia-cuda-runtime-cu12
 bitsandbytes-windows
+bitsandbytes
